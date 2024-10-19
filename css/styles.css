@@ -3,6 +3,12 @@ html {
   height: 100%;
   margin: 0;
   font-family: Arial, sans-serif;
+  /* opacity: 0; */
+  transition: opacity 0.5s ease-in-out;
+}
+
+body.fade-in {
+  opacity: 1;
 }
 
 .hero {
