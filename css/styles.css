@@ -3,11 +3,14 @@ html {
   height: 100%;
   margin: 0;
   font-family: Arial, sans-serif;
-  /* opacity: 0; */
-  transition: opacity 0.5s ease-in-out;
+  /* need to fix the fading off the page so the navbar works */
+  /* visibility: visible;
+  opacity: 1; */
+  transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
 }
 
-body.fade-in {
+body.loaded {
+  visibility: visible;
   opacity: 1;
 }
 
