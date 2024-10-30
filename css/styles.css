@@ -15,25 +15,56 @@ body.loaded {
 }
 
 .hero {
-  height: 50%; /* Full height of the viewport */
+  height: 70vh; /* Full height of the viewport */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-image: url("path_to_hero_image.jpg");
+  background-image: url("../images/christina-deravedisian-Bh0L-neT69o-unsplash.jpg?v=1");
   background-size: cover;
   background-position: center;
   color: white;
   text-align: center;
+  z-index: 0;
 }
 
-.service_index {
-  height: 50%;
+.service_index_items {
+  transition: all 0.5s ease;
+  height: 30vh;
+  overflow: hidden;
+}
+
+.service_index_items:hover {
+  background-color: hsl(120, 100%, 25%);
+  color: aliceblue;
+  height: 35vh;
+  transform: translateY(-10%);
+  z-index: 1;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.mehr-info-btn {
+  display: none;
+  border-radius: 50px;
+  transition: background-color 0.5s ease, opacity 0.3s ease;
+  margin-top: 15px;
+  background-color: yellowgreen;
+}
+
+.service_index_items:hover .mehr-info-btn {
+  display: inline-block;
+  opacity: 1;
+}
+
+.mehr-info-btn:hover {
+  background-color: hsl(36, 99%, 57%);
 }
 
 .container {
-  width: 80%; /* Expand container width */
-  max-width: 1200px; /* Optional: To prevent content from being too wide */
+  width: 80%;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
