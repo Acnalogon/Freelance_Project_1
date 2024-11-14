@@ -13,7 +13,10 @@ body.loaded {
   visibility: visible;
   opacity: 1;
 }
-
+#custom-navbar {
+  background-color: hsl(74, 32%, 32%);
+  color: white;
+}
 .hero {
   height: 70vh; /* Full height of the viewport */
   display: flex;
@@ -35,7 +38,7 @@ body.loaded {
 }
 
 .service_index_items:hover {
-  background-color: hsl(120, 100%, 25%);
+  background-color: /* hsl(120, 100%, 25%) */ hsl(74, 32%, 32%);
   color: aliceblue;
   height: 35vh;
   transform: translateY(-10%);

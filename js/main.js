@@ -1,13 +1,40 @@
-window.addEventListener("load", () => {
-  document.body.classList.add("loaded");
-});
+// Inject Navbar Template
+function insertNavbar() {
+  const navbarTemplate = `
+    <nav class="navbar navbar-expand-lg navbar-light custom-navbar">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="index.html">Psychologische Praxis</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="index.html">Startseite</a></li>
+            <li class="nav-item"><a class="nav-link" href="about.html">Über mich</a></li>
+            <li class="nav-item"><a class="nav-link" href="services.html">Leistungen</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.html">Kontakt</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  `;
+  document.getElementById("custom-navbar").innerHTML = navbarTemplate;
+}
 
+// Initialize form validation and other scripts
 function initializeScripts() {
   const contactForm = document.getElementById("contact-form");
   if (contactForm) {
     contactForm.addEventListener("submit", function (event) {
       event.preventDefault();
-
       const timeInput = document.getElementById("time");
       if (timeInput) {
         const time = timeInput.value;
@@ -17,53 +44,37 @@ function initializeScripts() {
           return;
         }
       }
-
       alert("Ihre Nachricht wurde gesendet!");
     });
   }
 }
 
+// Set up Barba.js for page transitions, excluding the home page
 barba.init({
   transitions: [
     {
       name: "page-transition",
+      once(data) {
+        // Runs only once when a page is loaded for the first time
+        insertNavbar();
+        initializeScripts();
+      },
       leave(data) {
-        return new Promise((resolve) => {
-          gsap.timeline({ onComplete: resolve }).to(data.current.container, {
-            opacity: 0,
-            x: "-100%",
-            duration: 0.5,
-            ease: "power1.out",
-          });
+        return gsap.to(data.current.container, {
+          opacity: 0,
+          x: "-100%",
+          duration: 0.5,
+          ease: "power1.out",
         });
       },
       enter(data) {
+        const nextContainer = data.next.container;
         const page = data.next.url.path;
-        const navbar = data.next.container.querySelector(".navbar");
-        const footer = data.next.container.querySelector("footer");
-        let header, contentSections;
 
-        if (page.includes("index.html")) {
-          header = data.next.container.querySelector(".hero");
-          contentSections = data.next.container.querySelectorAll(
-            ".service_index .col-md-4"
-          );
-          gsap.from(header, {
-            opacity: 0,
-            y: "-100%",
-            duration: 0.8,
-            ease: "power2.out",
-          });
-          gsap.from(contentSections, {
-            opacity: 0,
-            y: 30,
-            stagger: 0.2,
-            duration: 0.6,
-            ease: "power1.out",
-          });
-        } else if (page.includes("about.html")) {
-          header = data.next.container.querySelector("h1");
-          contentSections = data.next.container.querySelectorAll("p");
+        let header, contentSections;
+        if (page.includes("about.html")) {
+          header = nextContainer.querySelector("h1");
+          contentSections = nextContainer.querySelectorAll("p");
           gsap.from(header, {
             opacity: 0,
             x: "-100%",
@@ -78,9 +89,8 @@ barba.init({
             ease: "power1.out",
           });
         } else if (page.includes("services.html")) {
-          header = data.next.container.querySelector("h1");
-          contentSections =
-            data.next.container.querySelectorAll(".list-group-item");
+          header = nextContainer.querySelector("h1");
+          contentSections = nextContainer.querySelectorAll(".list-group-item");
           gsap.from(header, {
             opacity: 0,
             scale: 0.8,
@@ -95,8 +105,8 @@ barba.init({
             ease: "power1.out",
           });
         } else if (page.includes("contact.html")) {
-          header = data.next.container.querySelector("h1");
-          contentSections = data.next.container.querySelectorAll(".mb-3, h2");
+          header = nextContainer.querySelector("h1");
+          contentSections = nextContainer.querySelectorAll(".mb-3, h2");
           gsap.from(header, {
             opacity: 0,
             x: "-100%",
@@ -112,14 +122,15 @@ barba.init({
           });
         }
 
-        // Navbar fade-in
+        // Navbar and footer animations
+        const navbar = nextContainer.querySelector(".navbar");
+        const footer = nextContainer.querySelector("footer");
         gsap.from(navbar, {
           opacity: 0,
           y: -50,
           duration: 0.6,
           ease: "power1.out",
         });
-        // Footer fade-in from bottom
         gsap.from(footer, {
           opacity: 0,
           y: 50,
@@ -130,8 +141,24 @@ barba.init({
       },
     },
   ],
+  views: [
+    {
+      namespace: "home",
+      beforeEnter() {
+        // Disable Barba transitions for the home page to ensure full reloads
+        window.location.href = "index.html";
+      },
+    },
+  ],
 });
 
+// Run scripts after each page transition
 barba.hooks.after(() => {
   initializeScripts();
+});
+
+// Insert the navbar on initial page load
+window.addEventListener("load", () => {
+  insertNavbar();
+  document.body.classList.add("loaded");
 });
