@@ -3,10 +3,13 @@ html {
   height: 100%;
   margin: 0;
   font-family: Arial, sans-serif;
-  /* need to fix the fading off the page so the navbar works */
-  /* visibility: visible;
-  opacity: 1; */
   transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+  background-color: hsl(52, 94%, 94%);
+}
+
+a {
+  text-decoration: none;
+  color: hsl(74, 32%, 32%);
 }
 
 body.loaded {
@@ -14,7 +17,7 @@ body.loaded {
   opacity: 1;
 }
 #custom-navbar {
-  background-color: hsl(74, 32%, 32%);
+  background-color: hsl(52, 94%, 94%);
   color: white;
 }
 .hero {
@@ -26,6 +29,7 @@ body.loaded {
   background-image: url("../images/christina-deravedisian-Bh0L-neT69o-unsplash.jpg?v=1");
   background-size: cover;
   background-position: center;
+  background-color: hsl(74, 32%, 32%);
   color: white;
   text-align: center;
   z-index: 0;
@@ -53,12 +57,13 @@ body.loaded {
   border-radius: 50px;
   transition: background-color 0.5s ease, opacity 0.3s ease;
   margin-top: 15px;
-  background-color: yellowgreen;
+  background-color: hsl(52, 94%, 94%);
 }
 
 .service_index_items:hover .mehr-info-btn {
   display: inline-block;
   opacity: 1;
+  color: hsl(74, 32%, 32%);
 }
 
 .mehr-info-btn:hover {
@@ -70,4 +75,45 @@ body.loaded {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+}
+
+.list-group-item {
+  background-color: hsl(52, 94%, 94%);
+}
+.list-group-item:hover {
+  background-color: hsl(74, 32%, 32%);
+  color: hsl(52, 94%, 94%);
+}
+.list-group-item.active,
+.list-group-item:focus {
+  background-color: hsl(36, 99%, 57%);
+  color: hsl(52, 94%, 94%);
+}
+
+section,
+.service-container {
+  padding-bottom: 50vh;
+}
+
+.services {
+  color: hsl(74, 32%, 32%);
+}
+
+.tab-content,
+.tab-pane {
+  background-color: hsl(74, 32%, 32%);
+  color: hsl(52, 94%, 94%);
+  padding: 2vh;
+  border-radius: 0%;
+  margin-left: 0%;
+}
+
+.contact-send-btn {
+  background-color: hsl(74, 32%, 32%);
+  color: hsl(52, 94%, 94%);
+  border: none;
+}
+
+.contact-send-btn:hover {
+  background-color: hsl(36, 99%, 57%);
 }

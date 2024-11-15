@@ -1,9 +1,8 @@
-// Inject Navbar Template
 function insertNavbar() {
   const navbarTemplate = `
     <nav class="navbar navbar-expand-lg navbar-light custom-navbar">
       <div class="container-fluid">
-        <a class="navbar-brand" href="index.html">Psychologische Praxis</a>
+        <a class="navbar-brand" href="index.html">Şenay Aksoy</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -29,7 +28,28 @@ function insertNavbar() {
   document.getElementById("custom-navbar").innerHTML = navbarTemplate;
 }
 
-// Initialize form validation and other scripts
+/* function insertFooter() {
+  const footerTemplate = `<footer class="bg-light text-center py-4">
+          <p>&copy; 2024 Psychologische Praxis Wien</p>
+          <p>
+            <a
+              href="mailto:info@praxis-wien.at"
+              class="text-dark text-decoration-none"
+            >
+              info@praxis-wien.at
+            </a>
+            |
+            <a href="tel:+431234567890" class="text-dark text-decoration-none">
+              +43 123 456 7890
+            </a>
+          </p>
+          <p>Öffnungszeiten:</p>
+          <p>Mo - Fr: 9:00 - 17:00 Uhr</p>
+          <p>Sa: 10:00 - 14:00 Uhr</p>
+        </footer>`;
+  document.getElementById("custom-footer").innerHTML = footerTemplate;
+}
+ */
 function initializeScripts() {
   const contactForm = document.getElementById("contact-form");
   if (contactForm) {
@@ -49,13 +69,11 @@ function initializeScripts() {
   }
 }
 
-// Set up Barba.js for page transitions, excluding the home page
 barba.init({
   transitions: [
     {
       name: "page-transition",
       once(data) {
-        // Runs only once when a page is loaded for the first time
         insertNavbar();
         initializeScripts();
       },
@@ -122,7 +140,6 @@ barba.init({
           });
         }
 
-        // Navbar and footer animations
         const navbar = nextContainer.querySelector(".navbar");
         const footer = nextContainer.querySelector("footer");
         gsap.from(navbar, {
@@ -145,20 +162,18 @@ barba.init({
     {
       namespace: "home",
       beforeEnter() {
-        // Disable Barba transitions for the home page to ensure full reloads
         window.location.href = "index.html";
       },
     },
   ],
 });
 
-// Run scripts after each page transition
 barba.hooks.after(() => {
   initializeScripts();
 });
 
-// Insert the navbar on initial page load
 window.addEventListener("load", () => {
   insertNavbar();
+  /* insertFooter(); */
   document.body.classList.add("loaded");
 });
